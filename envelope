@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Скорбящий лист</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #1a1a1a 0%, #0b0b0b 100%);
+      font-family: "Georgia", serif;
+      overflow: hidden;
+    }
+
+    .scene {
+      position: relative;
+      width: 420px;
+      height: 420px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .envelope {
+      position: absolute;
+      width: 280px;
+      height: 180px;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+      z-index: 5;
+    }
+
+    .envelope:hover {
+      transform: scale(1.03);
+    }
+
+    .envelope.opened:hover {
+      transform: none;
+    }
+
+    .envelope-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #d8d0c2;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+      overflow: hidden;
+    }
+
+    .envelope-front {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 95px;
+      background: #c9bfaf;
+      clip-path: polygon(0 0, 50% 70%, 100% 0, 100% 100%, 0 100%);
+      border-radius: 0 0 8px 8px;
+      z-index: 4;
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100px;
+      background: #beb29f;
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+      transform-origin: top center;
+      transition: transform 1s ease;
+      z-index: 6;
+    }
+
+    .envelope.opened .flap {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .letter {
+      position: absolute;
+      width: 240px;
+      height: 320px;
+      background: #f4f1ea;
+      border-radius: 8px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.45);
+      padding: 24px 22px;
+      color: #2b2b2b;
+      line-height: 1.45;
+      font-size: 15px;
+      transform: translateY(45px);
+      transition: transform 1.2s ease 0.3s, box-shadow 0.5s ease;
+      z-index: 2;
+      overflow-y: auto;
+    }
+
+    .envelope.opened + .letter {
+      transform: translateY(-120px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.55);
+    }
+
+    .letter h1 {
+      margin: 0 0 16px;
+      font-size: 22px;
+      text-align: center;
+      font-weight: normal;
+    }
+
+    .letter p {
+      margin: 0 0 12px;
+      white-space: pre-line;
+    }
+
+    .hint {
+      position: absolute;
+      bottom: 30px;
+      width: 100%;
+      text-align: center;
+      color: rgba(255,255,255,0.45);
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      transition: opacity 0.4s ease;
+      user-select: none;
+    }
+
+    .hint.hidden {
+      opacity: 0;
+    }
+
+    @media (max-width: 500px) {
+      .scene {
+        width: 100%;
+        height: 100vh;
+      }
+
+      .envelope {
+        width: 240px;
+        height: 155px;
+      }
+
+      .letter {
+        width: 215px;
+        height: 300px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="scene">
+    <div class="envelope" id="envelope">
+      <div class="envelope-back"></div>
+      <div class="flap"></div>
+      <div class="envelope-front"></div>
+    </div>
+
+    <div class="letter" id="letter">
+      <h1>Скорбящий лист</h1>
+      <p>
+<!-- ВСТАВЬ СВОЙ ТЕКСТ СЮДА -->
+
+Скорбящий лист
+от Центра Финансовой Поддержки
+
+Уважаемый гражданин,
+
+в связи с заботой о финансовом благополучии отправителя, передача очков в Вашу пользу была признана нецелесообразной.
+
+В качестве компенсации примите этот скорбящий лист, а также наши самые тёплые и совершенно бесплатные пожелания успеха, достатка и терпения.
+
+С уважением,
+Центр Финансовой Поддержки
+      </p>
+    </div>
+
+    <div class="hint" id="hint">Нажмите на конверт</div>
+  </div>
+
+  <script>
+    const envelope = document.getElementById("envelope");
+    const hint = document.getElementById("hint");
+    let opened = false;
+
+    envelope.addEventListener("click", () => {
+      if (!opened) {
+        envelope.classList.add("opened");
+        hint.classList.add("hidden");
+        opened = true;
+      }
+    });
+  </script>
+</body>
+</html>
